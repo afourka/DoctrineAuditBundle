@@ -91,10 +91,10 @@ class CreateSchemaListener implements EventSubscriber
             'notnull' => true,
         ]);
         $auditTable->setPrimaryKey(['id']);
-        $auditTable->addIndex(['type'], 'type_'.md5($auditTable->getName()).'_idx');
-        $auditTable->addIndex(['object_id'], 'object_id_'.md5($auditTable->getName()).'_idx');
-        $auditTable->addIndex(['blame_id'], 'blame_id_'.md5($auditTable->getName()).'_idx');
-        $auditTable->addIndex(['created_at'], 'created_at_'.md5($auditTable->getName()).'_idx');
+        $auditTable->addIndex(['type'], 'type_'.substr(md5($auditTable->getName(), 0, 12)).'_idx');
+        $auditTable->addIndex(['object_id'], 'object_id_'.substr(md5($auditTable->getName(), 0, 12)).'_idx');
+        $auditTable->addIndex(['blame_id'], 'blame_id_'.substr(md5($auditTable->getName(), 0, 12)).'_idx');
+        $auditTable->addIndex(['created_at'], 'created_at_'.substr(md5($auditTable->getName(), 0, 12)).'_idx');
 
         if (!\in_array($cm->inheritanceType, [
             ClassMetadataInfo::INHERITANCE_TYPE_NONE,
